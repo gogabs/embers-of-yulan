@@ -647,7 +647,7 @@ class Renderer:
             self.draw(self.gfx, now)
             self.gfx.end()
         except Exception as exc:   # gráfico com defeito não pode derrubar o jogo
-            print("[bambuzal] gráficos desligados: %s" % exc)
+            print("[yulan] gráficos desligados: %s" % exc)
             self.failed = True
             self.close()
 
@@ -677,6 +677,6 @@ class Renderer:
                 self.art = Art(gfx)
             self.draw(gfx, now)
         except Exception as exc:   # gráfico com defeito não pode derrubar o jogo
-            print("[bambuzal] gráficos desligados: %s" % exc)
+            print("[yulan] gráficos desligados: %s" % exc)
             self.failed = True
             self.game._draw_caption(gfx)

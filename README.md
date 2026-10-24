@@ -42,7 +42,7 @@ mais perto (até 8 casas), e um som duplo quando ele já está ao alcance da
 arma. Assim dá para mirar sem saber de que lado ele soa.
 
 O mundo nunca sabe de esquerda e direita: ele só diz "toque isto na casa N".
-Quem decide como a casa N soa é `bambuzal/som.py`, então trocar o estéreo por
+Quem decide como a casa N soa é `yulan/som.py`, então trocar o estéreo por
 outra coisa no futuro é mexer numa função só.
 
 ## Na tela
@@ -171,7 +171,7 @@ python3 tools/simular.py 12               # joga sozinho e mostra quantas noites
 ./instalar.sh                             # instala no console (veja o script)
 ```
 
-Os números do equilíbrio ficam todos em `bambuzal/config.py`. Na simulação,
+Os números do equilíbrio ficam todos em `yulan/config.py`. Na simulação,
 um jogador parado no acampamento morre na primeira noite, e um jogador razoável
 (sai de dia, junta erva e bambu, arma buracos, volta antes de escurecer, mantém o
 fogo e a fumaça e luta da beira) aguenta 6 noites na mediana. Um dia dura 12

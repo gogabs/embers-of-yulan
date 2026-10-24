@@ -13,12 +13,12 @@ if not os.path.isdir(os.path.join(HERE, "r36s_a11y")):
 
 import r36s_a11y as a11y
 
-from bambuzal import config as C
-from bambuzal import data as D
-from bambuzal import som
-from bambuzal import tela
-from bambuzal import texts as T
-from bambuzal.mundo import World
+from yulan import config as C
+from yulan import data as D
+from yulan import som
+from yulan import tela
+from yulan import texts as T
+from yulan.mundo import World
 
 game = a11y.Game(repeat=False, axes=True, deadzone=0.2)
 SAVE_FILE = os.path.join(game.save_dir, "mundo.json")
@@ -59,7 +59,7 @@ def delete_save():
 
 # --- som e fala --------------------------------------------------------------------
 class UI:
-    """Ponte entre o mundo e o áudio. Onde cada casa soa fica em bambuzal/som.py."""
+    """Ponte entre o mundo e o áudio. Onde cada casa soa fica em yulan/som.py."""
 
     def __init__(self):
         self.loops = {}        # chave -> (voz, casa ou None, volume, nome)
@@ -195,7 +195,7 @@ def continue_game():
         world = World.from_dict(data["mundo"], ui, random.Random(), on_dawn=write_save,
                                 on_death=on_death)
     except (OSError, ValueError, KeyError, TypeError) as exc:
-        print("[bambuzal] save ilegível: %s" % exc, file=sys.stderr)
+        print("[yulan] save ilegível: %s" % exc, file=sys.stderr)
         game.say("Não deu para ler o jogo salvo.")
         return
     main_menu.close()
