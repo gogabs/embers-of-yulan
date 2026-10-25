@@ -9,6 +9,8 @@ Estes sons não são gerados. Vieram da web com licença livre.
 | `sounds/jiangshi_sai.wav` | Ghostly Humming, primeira frase, 1,8 s | Nocturnal_Vanguard (AuraVoice) | CC0 | https://opengameart.org/content/ghostly-humming |
 | `sounds/jiangshi_morre.wav` | Teleport Spell | Ogrebane | CC0 | https://opengameart.org/content/teleport-spell |
 
+| `sounds/fogueira_erva.wav` | Fireplace #4 (a mesma fogueira acima) misturada com Chimney of smoke that cools (BSB 1161), filtrada, como fumaça de fundo | Joseph Sardin | CC0 1.0 | https://bigsoundbank.com/chimney-of-smoke-that-cools-s1161.html |
+| `sounds/fumaca.wav` | Chimney of smoke that cools (BSB 1161), trecho de 0,9 s | Joseph Sardin | CC0 1.0 | https://bigsoundbank.com/chimney-of-smoke-that-cools-s1161.html |
 | `sounds/golpe_1.wav` (soco e lança) | Swishes Sound Pack, swish-9 | artisticdude | CC0 | https://opengameart.org/content/swishes-sound-pack |
 | `sounds/golpe_2.wav` | Swishes Sound Pack, swish-7 | artisticdude | CC0 | https://opengameart.org/content/swishes-sound-pack |
 | `sounds/golpe_3.wav` | Whoosh #5 (BSB 1797) | Joseph Sardin | CC0 1.0 | https://bigsoundbank.com/whoosh-5-s1797.html |
