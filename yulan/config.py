@@ -18,6 +18,8 @@ PHASES = ((6, "alvorada"), (8, "manhã"), (12, "meio-dia"), (14, "tarde"),
 STEP_VARIANTS = 5             # passos de cada terreno
 STRIKE_VARIANTS = 3           # golpe (soco e lança usam os mesmos)
 EFFORT_VARIANTS = 4           # voz de esforço da heroína ao golpear
+BOAR_GRUNT_VARIANTS = 2       # grunhido do javali
+HOOF_VARIANTS = 4             # casco do javali
 
 # --- mapa ----------------------------------------------------------------------
 # Uma grade de MAP_WIDTH por MAP_HEIGHT casas. Hoje só se anda pela fileira 0 (de oeste

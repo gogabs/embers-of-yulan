@@ -1047,7 +1047,7 @@ class World:
             b.grunt_in -= dt
             if b.grunt_in <= 0:
                 b.grunt_in = self.rng.uniform(*C.BOAR_GRUNT_SECONDS)
-                self.ui.play("javali", b.tile)
+                self.ui.play(self.variant("javali", C.BOAR_GRUNT_VARIANTS), b.tile)
             outside = not self.at_camp()
             if b.stuck > 0:
                 b.stuck -= dt
@@ -1073,14 +1073,14 @@ class World:
                 elif b.move_in <= 0:
                     b.move_in = C.BOAR_CHARGE_SECONDS
                     b.tile += 1 if d > 0 else -1
-                    self.ui.play("casco", b.tile)
+                    self.ui.play(self.variant("casco", C.HOOF_VARIANTS), b.tile)
                     self._trap_check(b)
             elif b.move_in <= 0:
                 b.move_in = self.rng.uniform(*C.BOAR_WANDER_SECONDS)
                 step = self.rng.choice((-1, 1))
                 if self._boar_ground(b.tile + step):
                     b.tile += step
-                    self.ui.play("casco", b.tile, volume=0.6)
+                    self.ui.play(self.variant("casco", C.HOOF_VARIANTS), b.tile, volume=0.6)
                     self._trap_check(b)
 
     # --- jiangshi ----------------------------------------------------------------
