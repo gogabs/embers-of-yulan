@@ -185,7 +185,7 @@ class World:
             self.ui.say("Dica: no acampamento, com %s, você faz uma lança." % D.cost_text(D.SPEAR_COST),
                         queue=True)
         if hour in self.PHASE_TEXT:
-            self.ui.say(self.PHASE_TEXT[hour], queue=True)
+            self.ui.say(self.PHASE_TEXT[hour], stale=True)
         if hour == C.DUSK_WARNING_HOUR:
             self._forecast()
             self.ui.say("Anoitecendo. O sol está baixando. Volte ao acampamento, acenda a fogueira "
@@ -223,7 +223,7 @@ class World:
                 if roll <= 0:
                     break
             self.weather = key
-        self.ui.say(self.WEATHER_TEXT[self.weather], queue=True)
+        self.ui.say(self.WEATHER_TEXT[self.weather], stale=True)
 
     def _nightfall(self):
         self.nights += 1
@@ -524,24 +524,29 @@ class World:
                      pitch=self.rng.uniform(0.95, 1.05))
         self._place_loops()
         now_camp = self.at_camp()
+        said = []
         if now_camp and not was_camp:
-            self.ui.say("Acampamento, fogueira %s." % ("acesa" if self.fire_hours > 0 else "apagada"))
+            said.append("Acampamento, fogueira %s." % ("acesa" if self.fire_hours > 0 else "apagada"))
         elif was_camp and not now_camp or after != before:
-            self.ui.say(D.terrain_name(after) + ".")
+            said.append(D.terrain_name(after) + ".")
         self._check_drops_underfoot()
-        self._check_plot_underfoot()
+        said.extend(self._plot_underfoot())
+        if said:
+            # uma só fala por passo: ela corta a do passo anterior em vez de entrar na fila
+            self.ui.say(" ".join(said))
 
     def _check_drops_underfoot(self):
         pile = self.drops.get(self.x)
         if pile:
             self.ui.play("item_chao", self.x)
 
-    def _check_plot_underfoot(self):
+    def _plot_underfoot(self):
         plot = self.plots.get(self.cell)
         if plot is not None:
-            self.ui.say(self.plot_text(plot) + ".", queue=True)
-        elif self.map.is_fertile(*self.cell):
-            self.ui.say("Terra boa para plantar.", queue=True)
+            return [self.plot_text(plot) + "."]
+        if self.map.is_fertile(*self.cell):
+            return ["Terra boa para plantar."]
+        return []
 
     def act(self):
         """B: o verbo do lugar. Com uma tarefa em andamento, é mais um toque nela; fora, pega o
@@ -881,12 +886,12 @@ class World:
             near = abs(cell[0] - self.x) <= C.HEAR_TILES
             if plot["hours"] >= C.CROP_HOURS:
                 plot["ready"] = True
-                self.ui.say("Um nabo ficou maduro, %s." % D.distance(cell[0] - self.x), queue=True)
+                self.ui.say("Um nabo ficou maduro, %s." % D.distance(cell[0] - self.x), stale=True)
             elif plot["hours"] >= C.WEEDS_AT_HOURS and not plot.get("weeded"):
                 plot["weeds"] = plot["weeded"] = True
                 if near:
                     self.ui.say("O mato tomou uma plantação, %s." % D.distance(cell[0] - self.x),
-                                queue=True)
+                                stale=True)
 
     def status(self):
         parts = [self.time_text(),
