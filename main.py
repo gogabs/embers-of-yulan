@@ -63,10 +63,43 @@ class UI:
 
     def __init__(self):
         self.loops = {}        # chave -> (voz, casa ou None, volume, nome)
+        self.pending = []      # (texto, descartável) esperando a fala atual
+        self.speaking = False
+        self.turn = 0
         self.x = 0
 
-    def say(self, text, queue=False):
-        game.say(text, queue=queue)
+    # Política de fala: o que o jogador faz (passo, botão) corta a fala anterior, que ficou
+    # obsoleta; avisos (queue=True) esperam a fala atual terminar, sem se acumular; avisos
+    # só informativos (stale=True) são descartados se algo mais novo for falado antes.
+    MAX_PENDING = 4
+
+    def say(self, text, queue=False, stale=False):
+        if queue or stale:
+            if not self.speaking:
+                self._speak(text)
+                return
+            if any(t == text for t, _ in self.pending):
+                return
+            self.pending.append((text, stale))
+            while len(self.pending) > self.MAX_PENDING:
+                drop = next((i for i, (_, st) in enumerate(self.pending) if st), 0)
+                del self.pending[drop]
+            return
+        self.pending = [item for item in self.pending if not item[1]]
+        self._speak(text)
+
+    def _speak(self, text):
+        self.speaking = True
+        self.turn += 1
+        turn = self.turn
+        game.say(text, on_done=lambda done: self._spoken(turn, done))
+
+    def _spoken(self, turn, done):
+        if turn != self.turn:
+            return        # cortada por uma fala mais nova, que cuida da fila
+        self.speaking = False
+        if self.pending:
+            self._speak(self.pending.pop(0)[0])
 
     def play(self, name, tile=None, volume=1.0, pitch=1.0):
         sound = sounds.get(name)
